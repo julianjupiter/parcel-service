@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /parcel-service/api
+spring:
+  application:
+  name: parcel-service
+  datasource:
+    driver-class-name: ${DATASOURCE_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/parcel_db?useSSL=false&serverTimezone=UTC}
+    username: ${DATASOURCE_USERNAME:root}
+    password: ${DATASOURCE_PASSWORD:}
+  messages:
+    basename: i18n/messages
+  threads:
+    virtual:
+      enabled: true
+mynt-custom-api:
+#  base-url: ${MYNT_CUSTOM_API_BASE_URL:https://mynt-exam.mocklab.io}
+  base-url: ${MYNT_CUSTOM_API_BASE_URL:http://localhost:8080/parcel-service/api}
+  api-key: ${MYNT_CUSTOM_API_API_KEY:apikey}
+parcel:
+  rules:
+    reject: ${PARCEL_RULES_REJECT:50}
+    heavy-parcel: ${PARCEL_RULES_HEAVY_PARCEL:10}
+    small-parcel: ${PARCEL_RULES_SMALL_PARCEL:1500}
+    medium-parcel: ${PARCEL_RULES_MEDIUM_PARCEl:2500}
