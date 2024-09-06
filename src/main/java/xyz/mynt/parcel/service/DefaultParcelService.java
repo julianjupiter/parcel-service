@@ -98,23 +98,16 @@ class DefaultParcelService implements ParcelService {
             var volumeDecimal = BigDecimal.valueOf(volume);
             if (volume < this.parcelRulesConfig.getSmallParcel()) {
                 this.parcelTypeCode = ParcelTypeCode.SMALL_PARCEL;
-                cost = this.parcelTypeRepository.findByCode(this.parcelTypeCode)
-                        .map(ParcelType::basicCost)
-                        .map(volumeDecimal::multiply)
-                        .orElse(BigDecimal.ZERO);
             } else if (volume < this.parcelRulesConfig.getMediumParcel()) {
                 this.parcelTypeCode = ParcelTypeCode.MEDIUM_PARCEL;
-                cost = this.parcelTypeRepository.findByCode(this.parcelTypeCode)
-                        .map(ParcelType::basicCost)
-                        .map(volumeDecimal::multiply)
-                        .orElse(BigDecimal.ZERO);
             } else {
                 this.parcelTypeCode = ParcelTypeCode.LARGE_PARCEL;
-                cost = this.parcelTypeRepository.findByCode(this.parcelTypeCode)
-                        .map(ParcelType::basicCost)
-                        .map(volumeDecimal::multiply)
-                        .orElse(BigDecimal.ZERO);
             }
+
+            cost = this.parcelTypeRepository.findByCode(this.parcelTypeCode)
+                    .map(ParcelType::basicCost)
+                    .map(volumeDecimal::multiply)
+                    .orElse(BigDecimal.ZERO);
         }
 
         return cost.setScale(2, RoundingMode.HALF_UP);
